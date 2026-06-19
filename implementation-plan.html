@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liya's Beauty Boutique - Implementation Plan</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :root {
+            --black: #0A0A0A;
+            --gold: #C9A66B;
+            --champagne: #E5D2A0;
+            --nude: #F7F2EB;
+            --white: #FFFFFF;
+            --dark-surface: #111111;
+            --card-dark: #181818;
+            --border-gold: rgba(201,166,107,0.25);
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --font-btn: 'Poppins', sans-serif;
+            --text: #e0e0e0;
+            --muted: rgba(255,255,255,0.45);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--dark-surface);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid var(--border-gold);
+        }
+        h1 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--gold);
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        h2 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--champagne);
+            margin: 2rem 0 1rem 0;
+            border-left: 5px solid var(--gold);
+            padding-left: 1rem;
+        }
+        h3 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin: 1.5rem 0 0.8rem 0;
+        }
+        h4 { font-weight: 600; color: var(--champagne); margin: 1rem 0 0.5rem 0; }
+        p, li { color: var(--text); line-height: 1.8; margin-bottom: 0.5rem; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+            border-radius: 0.8rem;
+            overflow: hidden;
+        }
+        th {
+            background: var(--gold);
+            color: var(--black);
+            text-align: left;
+            padding: 12px 16px;
+            font-weight: 600;
+        }
+        td {
+            padding: 10px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            color: var(--text);
+            vertical-align: top;
+        }
+        tr:hover td { background: rgba(201,166,107,0.05); }
+        .diagram-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border-gold);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .mermaid { text-align: center; padding: 0.5rem; }
+        .two-col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .info-card {
+            background: var(--card-dark);
+            border: 1px solid var(--border-gold);
+            border-radius: 0.8rem;
+            padding: 1.2rem 1.5rem;
+            border-left: 4px solid var(--gold);
+            transition: all 0.3s ease;
+        }
+        .info-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+        .info-card strong {
+            color: var(--white);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .highlight {
+            background: rgba(201,166,107,0.08);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem 2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 9px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border: 1px solid var(--border-gold);
+            color: var(--champagne);
+            background: rgba(201,166,107,0.06);
+        }
+        .badge-success {
+            color: #4CAF50;
+            border-color: #4CAF50;
+            background: rgba(76, 175, 80, 0.1);
+        }
+        .badge-warning {
+            color: #FFC107;
+            border-color: #FFC107;
+            background: rgba(255, 193, 7, 0.1);
+        }
+        .badge-danger {
+            color: #f44336;
+            border-color: #f44336;
+            background: rgba(244, 67, 54, 0.1);
+        }
+        .badge-info {
+            color: #2196F3;
+            border-color: #2196F3;
+            background: rgba(33, 150, 243, 0.1);
+        }
+        .footer {
+            text-align: center;
+            padding: 2rem 0 0 0;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-gold);
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .header-logo img {
+            height: 50px;
+            width: auto;
+            border-radius: 8px;
+        }
+        .header-logo .divider {
+            width: 1px;
+            height: 40px;
+            background: var(--border-gold);
+        }
+        @media (max-width: 700px) {
+            body { padding: 1rem; }
+            .container { padding: 1rem; }
+            h1 { font-size: 1.8rem; }
+            table { font-size: 0.75rem; display: block; overflow-x: auto; }
+            th, td { padding: 6px 10px; }
+            .two-col { grid-template-columns: 1fr; }
+        }
+        @media print {
+            body { padding: 0; background: var(--black); }
+            .container { border-radius: 0; }
+            .diagram-card, .info-card { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-logo">
+        <img src="https://a.lovart.ai/artifacts/user/dLNsFmAtEXuP38os.png" alt="Binary Bit Technologies">
+        <div class="divider"></div>
+        <img src="logo.jpeg" alt="Liya's Beauty Boutique" style="height:50px; width:auto; border-radius:8px;">
+    </div>
+
+    <h1>📋 Implementation Plan & Timeline</h1>
+    <p style="color: var(--muted); margin-bottom: 2rem;">
+        <i class="ri-user-line"></i> <strong>Network Engineer:</strong> Khanyisile Zulu &nbsp;|&nbsp;
+        <i class="ri-calendar-line"></i> June 2026 &nbsp;|&nbsp;
+        <span class="badge badge-success"><i class="ri-checkbox-circle-line"></i> READY FOR IMPLEMENTATION</span>
+    </p>
+
+    <!-- ===== PROJECT OVERVIEW ===== -->
+    <h2>1. Project Overview</h2>
+    <!-- Project Team section -->
+<div class="two-col">
+    <div class="info-card">
+        <strong>📅 Project Timeline</strong>
+        <strong>Start Date:</strong> 22 June 2026<br>
+        <strong>End Date:</strong> 17 July 2026<br>
+        <strong>Duration:</strong> 4 Weeks<br>
+        <strong>Total Effort:</strong> 180+ Hours
+    </div>
+    <div class="info-card">
+        <strong>👥 Project Team</strong>
+        <strong>Project Manager:</strong> T. Zulu<br>
+        <strong>Network Engineer:</strong> Kagiso Nkalanga<br>
+        <strong>System Administrator:</strong> Lungile M.<br>
+        <strong>Developer:</strong> Trevor N.<br>
+        <strong>QA Tester:</strong> Nomhle K.
+    </div>
+</div>
+
+    <!-- ===== GANTT CHART ===== -->
+    <h2>2. Gantt Chart - 4-Week Implementation</h2>
+    <div class="diagram-card">
+        <div class="mermaid">
+gantt
+    title Liya's Beauty Boutique - Network Infrastructure Implementation
+    dateFormat YYYY-MM-DD
+    axisFormat %b %d
+    
+    section Sprint 1 - Planning
+    Network Design & Architecture :done, 2026-06-22, 3d
+    Hardware Procurement :done, 2026-06-24, 2d
+    IP Addressing Scheme :done, 2026-06-23, 2d
+    
+    section Sprint 2 - Setup
+    Network Hardware Installation :crit, 2026-06-29, 3d
+    Firewall Configuration :crit, 2026-06-30, 2d
+    Wi-Fi Setup (Staff + Guest) :2026-07-01, 2d
+    Switch Configuration :2026-07-01, 2d
+    
+    section Sprint 3 - Security
+    Endpoint Protection Setup :crit, 2026-07-06, 3d
+    User Access Control Setup :2026-07-07, 2d
+    Cloud Infrastructure Setup :crit, 2026-07-06, 3d
+    Backup System Configuration :2026-07-08, 2d
+    
+    section Sprint 4 - Testing
+    Security Testing :crit, 2026-07-13, 3d
+    Disaster Recovery Testing :crit, 2026-07-14, 2d
+    Staff Training :2026-07-15, 2d
+    GO-LIVE :milestone, 2026-07-17, 1d
+        </div>
+    </div>
+
+    <!-- ===== DETAILED SCHEDULE ===== -->
+    <h2>3. Detailed Implementation Schedule</h2>
+
+    <h3>Sprint 1: Planning & Design (22-26 June 2026)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Duration</th>
+                <th>Responsible</th>
+                <th>Deliverable</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Network Architecture Design</td>
+                <td>3 days</td>
+                <td>Khanyisile</td>
+                <td>Network topology diagram</td>
+                <td><span class="badge badge-success">✅ Complete</span></td>
+            </tr>
+            <tr>
+                <td>Hardware Specification & Procurement</td>
+                <td>2 days</td>
+                <td>Lungile</td>
+                <td>Hardware order placed</td>
+                <td><span class="badge badge-success">✅ Complete</span></td>
+            </tr>
+            <tr>
+                <td>IP Addressing Scheme</td>
+                <td>2 days</td>
+                <td>Khanyisile</td>
+                <td>IP allocation table</td>
+                <td><span class="badge badge-success">✅ Complete</span></td>
+            </tr>
+            <tr>
+                <td>Security Policy Drafting</td>
+                <td>2 days</td>
+                <td>Trevor</td>
+                <td>Security policy document</td>
+                <td><span class="badge badge-success">✅ Complete</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Sprint 2: Hardware Setup (29 June - 3 July 2026)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Duration</th>
+                <th>Responsible</th>
+                <th>Deliverable</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Hardware Installation</td>
+                <td>3 days</td>
+                <td>Khanyisile</td>
+                <td>All hardware installed</td>
+                <td><span class="badge badge-warning">⏳ In Progress</span></td>
+            </tr>
+            <tr>
+                <td>Firewall Configuration</td>
+                <td>2 days</td>
+                <td>Lungile</td>
+                <td>Firewall rules applied</td>
+                <td><span class="badge badge-warning">⏳ In Progress</span></td>
+            </tr>
+            <tr>
+                <td>Wi-Fi Network Setup</td>
+                <td>2 days</td>
+                <td>Khanyisile</td>
+                <td>Staff & Guest Wi-Fi operational</td>
+                <td><span class="badge badge-warning">⏳ In Progress</span></td>
+            </tr>
+            <tr>
+                <td>Switch Configuration</td>
+                <td>2 days</td>
+                <td>Trevor</td>
+                <td>VLANs configured</td>
+                <td><span class="badge badge-warning">⏳ In Progress</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Sprint 3: Security & Cloud (6-10 July 2026)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Duration</th>
+                <th>Responsible</th>
+                <th>Deliverable</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Endpoint Protection Setup</td>
+                <td>3 days</td>
+                <td>Lungile</td>
+                <td>Antivirus deployed on all PCs</td>
+                <td><span class="badge badge-info">📋 Planned</span></td>
+            </tr>
+            <tr>
+                <td>User Access Control Setup</td>
+                <td>2 days</td>
+                <td>Trevor</td>
+                <td>RBAC implemented</td>
+                <td><span class="badge badge-info">📋 Planned</span></td>
+            </tr>
+            <tr>
+                <td>Cloud Infrastructure Setup</td>
+                <td>3 days</td>
+                <td>Khanyisile</td>
+                <td>Cloud server configured</td>
+                <td><span class="badge badge-info">📋 Planned</span></td>
+            </tr>
+            <tr>
+                <td>Backup System Configuration</td>
+                <td>2 days</td>
+                <td>Lungile</td>
+                <td>Automated backups running</td>
+                <td><span class="badge badge-info">📋 Planned</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Sprint 4: Testing & Go-Live (13-17 July 2026)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Duration</th>
+                <th>Responsible</th>
+                <th>Deliverable</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Security Testing</td>
+                <td>3 days</td>
+                <td>Nomhle</td>
+                <td>Security test report</td>
+                <td><span class="badge badge-info">📋 Planned</span></td>
+            </tr>
+            <tr>
+                <td>Disaster Recovery Testing</td>
+                <td>2 days</td>
+                <td>Khanyisile</td>
+                <td>DR test successful</td>
+                <td><span class="badge badge-info">📋 Planned</span></td>
+            </tr>
+            <tr>
+                <td>Staff Training</td>
+                <td>2 days</td>
+                <td>All</td>
+                <td>Training completed</td>
+                <td><span class="badge badge-info">📋 Planned</span></td>
+            </tr>
+            <tr>
+                <td>GO-LIVE</td>
+                <td>1 day</td>
+                <td>All</td>
+                <td>System operational</td>
+                <td><span class="badge badge-info">📋 Planned</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ===== CONVERSION STRATEGY ===== -->
+    <h2>4. Conversion Strategy - Phased Rollout</h2>
+    <div class="diagram-card">
+        <div class="mermaid">
+flowchart LR
+    subgraph Phase1["Phase 1 - Network Foundation"]
+        P1A[Hardware Installation]
+        P1B[Network Configuration]
+        P1C[Security Setup]
+        P1D[NETWORK READY]
+    end
+    
+    subgraph Phase2["Phase 2 - Cloud & Services"]
+        P2A[Cloud Infrastructure]
+        P2B[Backup System]
+        P2C[Monitoring Setup]
+        P2D[SERVICES READY]
+    end
+    
+    subgraph Phase3["Phase 3 - Go-Live"]
+        P3A[Security Testing]
+        P3B[Staff Training]
+        P3C[Hyper-Care Monitoring]
+        P3D[SYSTEM LIVE]
+    end
+    
+    P1D --> P2A
+    P2D --> P3A
+    P3D --> P3C
+        </div>
+    </div>
+
+    <h3>Rollout Timeline Details</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Step</th>
+                <th>Activity</th>
+                <th>Duration</th>
+                <th>Responsible</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Hardware installation & cabling</td>
+                <td>3 days</td>
+                <td>Khanyisile</td>
+                <td>29 June - 1 July</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Network configuration & testing</td>
+                <td>2 days</td>
+                <td>Khanyisile</td>
+                <td>1-2 July</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Security & firewall setup</td>
+                <td>2 days</td>
+                <td>Lungile</td>
+                <td>2-3 July</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Cloud infrastructure deployment</td>
+                <td>3 days</td>
+                <td>Trevor</td>
+                <td>6-8 July</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Backup system configuration</td>
+                <td>2 days</td>
+                <td>Lungile</td>
+                <td>8-9 July</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Security & DR testing</td>
+                <td>3 days</td>
+                <td>Nomhle</td>
+                <td>13-15 July</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Staff training</td>
+                <td>2 days</td>
+                <td>All</td>
+                <td>15-16 July</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td><strong>GO-LIVE</strong></td>
+                <td>-</td>
+                <td>T. Zulu</td>
+                <td><strong>17 July 2026</strong></td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>Hyper-care monitoring (48 hours)</td>
+                <td>2 days</td>
+                <td>Khanyisile</td>
+                <td>17-18 July</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ===== RISK ASSESSMENT ===== -->
+    <h2>5. Risk Assessment & Mitigation</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Risk ID</th>
+                <th>Risk Description</th>
+                <th>Probability</th>
+                <th>Impact</th>
+                <th>Mitigation Strategy</th>
+                <th>Owner</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>R-001</td>
+                <td>Hardware delivery delays</td>
+                <td>Medium</td>
+                <td>High</td>
+                <td>Order early; have backup suppliers</td>
+                <td>Lungile</td>
+            </tr>
+            <tr>
+                <td>R-002</td>
+                <td>Network configuration issues</td>
+                <td>Medium</td>
+                <td>High</td>
+                <td>Test in lab environment first</td>
+                <td>Khanyisile</td>
+            </tr>
+            <tr>
+                <td>R-003</td>
+                <td>Security breach during setup</td>
+                <td>Low</td>
+                <td>Critical</td>
+                <td>Isolate test network; strong passwords</td>
+                <td>Trevor</td>
+            </tr>
+            <tr>
+                <td>R-004</td>
+                <td>Staff resistance to new system</td>
+                <td>Medium</td>
+                <td>Medium</td>
+                <td>Early training; champion user approach</td>
+                <td>Khanyisile</td>
+            </tr>
+            <tr>
+                <td>R-005</td>
+                <td>Cloud service outage</td>
+                <td>Low</td>
+                <td>Critical</td>
+                <td>Backup hosting ready; DNS failover</td>
+                <td>Trevor</td>
+            </tr>
+            <tr>
+                <td>R-006</td>
+                <td>Data loss during migration</td>
+                <td>Low</td>
+                <td>Critical</td>
+                <td>Multiple backups; test restore first</td>
+                <td>Lungile</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ===== BUDGET ===== -->
+    <h2>6. Budget Estimation</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Estimated Cost (R)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="3"><strong>Hardware</strong></td>
+                <td>24-Port Managed Switch</td>
+                <td>1</td>
+                <td>R2,500</td>
+            </tr>
+            <tr>
+                <td>Wi-Fi 6 Access Point</td>
+                <td>1</td>
+                <td>R1,800</td>
+            </tr>
+            <tr>
+                <td>UPS (1000VA)</td>
+                <td>1</td>
+                <td>R1,200</td>
+            </tr>
+            <tr>
+                <td rowspan="3"><strong>Cloud & Services</strong></td>
+                <td>Cloud Hosting (Annual)</td>
+                <td>1</td>
+                <td>R4,800</td>
+            </tr>
+            <tr>
+                <td>SSL Certificate</td>
+                <td>1</td>
+                <td>R0 (Let's Encrypt)</td>
+            </tr>
+            <tr>
+                <td>External Hard Drive</td>
+                <td>1</td>
+                <td>R800</td>
+            </tr>
+            <tr>
+                <td rowspan="2"><strong>Labour</strong></td>
+                <td>Network Installation (40 hours)</td>
+                <td>1</td>
+                <td>R12,000</td>
+            </tr>
+            <tr>
+                <td>Training & Handover (10 hours)</td>
+                <td>1</td>
+                <td>R3,000</td>
+            </tr>
+            <tr>
+                <td colspan="3"><strong>TOTAL ESTIMATED COST</strong></td>
+                <td><strong>R26,100</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ===== SUCCESS CRITERIA ===== -->
+    <h2>7. Success Criteria</h2>
+    <div class="two-col">
+        <div class="info-card">
+            <strong>✅ Technical Success</strong>
+            • All hardware installed and operational<br>
+            • Network uptime > 99.9%<br>
+            • Firewall rules correctly applied<br>
+            • Staff & Guest Wi-Fi fully functional<br>
+            • Cloud infrastructure deployed<br>
+            • Automated backups running
+        </div>
+        <div class="info-card">
+            <strong>✅ Security Success</strong>
+            • No security breaches during setup<br>
+            • POPIA compliance achieved<br>
+            • User access controls implemented<br>
+            • All endpoints protected<br>
+            • Disaster recovery tested<br>
+            • Audit logs enabled
+        </div>
+        <div class="info-card">
+            <strong>✅ Business Success</strong>
+            • Staff trained and confident<br>
+            • System fully operational<br>
+            • Online booking functional<br>
+            • Payments processing correctly<br>
+            • Customer data protected<br>
+            • Owner sign-off obtained
+        </div>
+    </div>
+
+    <!-- ===== SIGN-OFF ===== -->
+    <h2>8. Sign-Off</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Role</th>
+                <th>Name</th>
+                <th>Signature</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Network Engineer</td>
+                <td>Khanyisile Zulu</td>
+                <td>_________________</td>
+                <td>_________</td>
+            </tr>
+            <tr>
+                <td>System Administrator</td>
+                <td>Lungile M.</td>
+                <td>_________________</td>
+                <td>_________</td>
+            </tr>
+            <tr>
+                <td>Project Manager</td>
+                <td>T. Zulu</td>
+                <td>_________________</td>
+                <td>_________</td>
+            </tr>
+            <tr>
+                <td>Salon Owner</td>
+                <td>Liya</td>
+                <td>_________________</td>
+                <td>_________</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="footer">
+        <p><i class="ri-sparkling-line"></i> Liya's Beauty Boutique — Implementation Plan & Timeline &nbsp;|&nbsp; <i class="ri-user-line"></i> Network Engineer: Khanyisile Zulu &nbsp;|&nbsp; <i class="ri-calendar-line"></i> June 2026</p>
+        <p style="font-size: 0.75rem; margin-top: 0.5rem;">Binary Bit Technologies &bull; All Rights Reserved</p>
+    </div>
+</div>
+
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        theme: 'base',
+        themeVariables: {
+            background: '#111',
+            primaryColor: '#181818',
+            primaryBorderColor: '#C9A66B',
+            primaryTextColor: '#e0e0e0',
+            lineColor: '#C9A66B',
+            secondaryColor: '#0A0A0A',
+            tertiaryColor: '#181818'
+        },
+        gantt: {
+            axisFormat: '%b %d',
+            titleTopMargin: 25,
+            barHeight: 20,
+            barGap: 4,
+            topPadding: 50,
+            leftPadding: 75
+        },
+        flowchart: { useMaxWidth: true }
+    });
+</script>
+
+</body>
+</html>

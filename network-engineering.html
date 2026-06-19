@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liya's Beauty Boutique - Network Engineering</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :root {
+            --black: #0A0A0A;
+            --gold: #C9A66B;
+            --champagne: #E5D2A0;
+            --nude: #F7F2EB;
+            --white: #FFFFFF;
+            --dark-surface: #111111;
+            --card-dark: #181818;
+            --border-gold: rgba(201,166,107,0.25);
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --font-btn: 'Poppins', sans-serif;
+            --text: #e0e0e0;
+            --muted: rgba(255,255,255,0.45);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--dark-surface);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid var(--border-gold);
+        }
+        h1 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--gold);
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        h2 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--champagne);
+            margin: 2rem 0 1rem 0;
+            border-left: 5px solid var(--gold);
+            padding-left: 1rem;
+        }
+        h3 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin: 1.5rem 0 0.8rem 0;
+        }
+        h4 {
+            font-weight: 600;
+            color: var(--champagne);
+            margin: 1rem 0 0.5rem 0;
+        }
+        p, li {
+            color: var(--text);
+            line-height: 1.8;
+            margin-bottom: 0.5rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+            border-radius: 0.8rem;
+            overflow: hidden;
+        }
+        th {
+            background: var(--gold);
+            color: var(--black);
+            text-align: left;
+            padding: 12px 16px;
+            font-weight: 600;
+        }
+        td {
+            padding: 10px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            color: var(--text);
+            vertical-align: top;
+        }
+        tr:hover td {
+            background: rgba(201,166,107,0.05);
+        }
+        .diagram-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border-gold);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .mermaid {
+            text-align: center;
+            padding: 0.5rem;
+        }
+        .two-col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .info-card {
+            background: var(--card-dark);
+            border: 1px solid var(--border-gold);
+            border-radius: 0.8rem;
+            padding: 1.2rem 1.5rem;
+            border-left: 4px solid var(--gold);
+            transition: all 0.3s ease;
+        }
+        .info-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+        .info-card strong {
+            color: var(--white);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .highlight {
+            background: rgba(201,166,107,0.08);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem 2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .highlight p {
+            margin: 0;
+        }
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        .checklist li {
+            padding: 8px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+        .checklist i {
+            color: var(--gold);
+            font-size: 18px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 9px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border: 1px solid var(--border-gold);
+            color: var(--champagne);
+            background: rgba(201,166,107,0.06);
+        }
+        .badge-success {
+            color: #4CAF50;
+            border-color: #4CAF50;
+            background: rgba(76, 175, 80, 0.1);
+        }
+        .badge-warning {
+            color: #FFC107;
+            border-color: #FFC107;
+            background: rgba(255, 193, 7, 0.1);
+        }
+        .footer {
+            text-align: center;
+            padding: 2rem 0 0 0;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-gold);
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .header-logo img {
+            height: 50px;
+            width: auto;
+            border-radius: 8px;
+        }
+        .header-logo .divider {
+            width: 1px;
+            height: 40px;
+            background: var(--border-gold);
+        }
+        @media (max-width: 700px) {
+            body { padding: 1rem; }
+            .container { padding: 1rem; }
+            h1 { font-size: 1.8rem; }
+            table { font-size: 0.75rem; display: block; overflow-x: auto; }
+            th, td { padding: 6px 10px; }
+            .two-col { grid-template-columns: 1fr; }
+        }
+        @media print {
+            body { padding: 0; background: var(--black); }
+            .container { border-radius: 0; }
+            .diagram-card, .info-card { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ===== HEADER ===== -->
+    <div class="header-logo">
+        <img src="https://a.lovart.ai/artifacts/user/dLNsFmAtEXuP38os.png" alt="Binary Bit Technologies">
+        <div class="divider"></div>
+        <img src="logo.jpeg" alt="Liya's Beauty Boutique" style="height:50px; width:auto; border-radius:8px;">
+    </div>
+
+    <h1>🔧 Network Engineering & Infrastructure</h1>
+    <p style="color: var(--muted); margin-bottom: 2rem;">
+        <i class="ri-user-line"></i> <strong>Network Engineer:</strong> Khanyisile Zulu &nbsp;|&nbsp;
+        <i class="ri-calendar-line"></i> June 2026 &nbsp;|&nbsp;
+        <span class="badge badge-success"><i class="ri-checkbox-circle-line"></i> IMPLEMENTATION READY</span>
+    </p>
+    <!-- In the header section -->
+<p style="color: var(--muted); margin-bottom: 2rem;">
+    <i class="ri-user-line"></i> <strong>Network Engineer:</strong> Kagiso Nkalanga &nbsp;|&nbsp;
+    <i class="ri-calendar-line"></i> June 2026 &nbsp;|&nbsp;
+    <span class="badge badge-success"><i class="ri-checkbox-circle-line"></i> IMPLEMENTATION READY</span>
+</p>
+    <!-- ===== NETWORK TOPOLOGY ===== -->
+    <h2>1. Network Topology</h2>
+    <div class="diagram-card">
+        <div class="mermaid">
+graph TB
+    subgraph Internet["🌐 Internet"]
+        ISP[ISP Router]
+    end
+
+    subgraph Salon["💼 Salon Network - 192.168.1.0/24"]
+        FW[🛡️ Firewall]
+        SW[🔀 24-Port Switch<br/>192.168.1.2]
+        AP[📶 Wi-Fi Access Point<br/>192.168.1.3]
+        REC[💻 Reception PC<br/>192.168.1.10]
+        OWN[💻 Owner PC<br/>192.168.1.11]
+        PRN[🖨️ Receipt Printer<br/>192.168.1.20]
+        UPS[⚡ UPS]
+    end
+
+    subgraph Wireless["📱 Wireless Networks"]
+        STAFF_WIFI[👤 Staff Wi-Fi<br/>WPA3]
+        GUEST_WIFI[👥 Guest Wi-Fi<br/>WPA3]
+    end
+
+    subgraph Cloud["☁️ Cloud Services"]
+        CLOUD[Hostinger/AWS/DigitalOcean<br/>Linux + Apache + Laravel + MySQL]
+        YOCO[💳 Yoco API]
+        WA[💬 WhatsApp API]
+        GOOGLE[📍 Google Business]
+    end
+
+    subgraph External["📱 External Devices"]
+        Staff[Staff Devices/Tablets]
+        Guests[Guest Devices]
+    end
+
+    ISP --> FW --> SW
+    SW --> AP
+    SW --> REC
+    SW --> OWN
+    SW --> PRN
+    SW --> UPS
+    
+    AP --> STAFF_WIFI --> Staff
+    AP --> GUEST_WIFI --> Guests
+    
+    SW --> CLOUD
+    SW --> YOCO
+    SW --> WA
+    SW --> GOOGLE
+        </div>
+        <p style="text-align: center; font-size: 0.8rem; color: var(--muted); margin-top: 0.5rem;">
+            <i class="ri-information-line"></i> Complete network topology showing all devices, IP addresses, and connections
+        </p>
+    </div>
+
+    <!-- ===== HARDWARE REQUIREMENTS ===== -->
+    <h2>2. Hardware Requirements</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Component</th>
+                <th>Quantity</th>
+                <th>Specification</th>
+                <th>Purpose</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>ISP Router</strong></td>
+                <td>1</td>
+                <td>Fibre-ready, dual-band Wi-Fi, 1Gbps</td>
+                <td>Internet connectivity & routing</td>
+            </tr>
+            <tr>
+                <td><strong>24-Port Network Switch</strong></td>
+                <td>1</td>
+                <td>Gigabit, managed, VLAN support</td>
+                <td>Internal network connectivity</td>
+            </tr>
+            <tr>
+                <td><strong>Wi-Fi Access Point</strong></td>
+                <td>1</td>
+                <td>Wi-Fi 6, WPA3 support, dual-band</td>
+                <td>Staff & guest wireless access</td>
+            </tr>
+            <tr>
+                <td><strong>Reception Desktop</strong></td>
+                <td>1</td>
+                <td>Intel i5, 8GB RAM, Windows 11</td>
+                <td>Receptionist workstation</td>
+            </tr>
+            <tr>
+                <td><strong>Owner Laptop/Desktop</strong></td>
+                <td>1</td>
+                <td>Intel i5, 8GB RAM, Windows 11</td>
+                <td>Owner administration</td>
+            </tr>
+            <tr>
+                <td><strong>Receipt Printer</strong></td>
+                <td>1</td>
+                <td>Thermal receipt printer, USB/Ethernet</td>
+                <td>Receipt printing for payments</td>
+            </tr>
+            <tr>
+                <td><strong>UPS</strong></td>
+                <td>1</td>
+                <td>1000VA+, surge protection</td>
+                <td>Power backup for network equipment</td>
+            </tr>
+            <tr>
+                <td><strong>External Hard Drive</strong></td>
+                <td>1</td>
+                <td>1TB+ USB 3.0, encrypted</td>
+                <td>Local backup storage</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ===== IP ADDRESSING ===== -->
+    <h2>3. IP Addressing Scheme</h2>
+    <div class="two-col">
+        <div>
+            <h4>Network Details</h4>
+            <table>
+                <tr><td><strong>Network Address</strong></td><td>192.168.1.0</td></tr>
+                <tr><td><strong>Subnet Mask</strong></td><td>255.255.255.0 (/24)</td></tr>
+                <tr><td><strong>Gateway</strong></td><td>192.168.1.1</td></tr>
+                <tr><td><strong>DHCP Range</strong></td><td>192.168.1.100 - 192.168.1.200</td></tr>
+            </table>
+        </div>
+        <div>
+            <h4>Static IP Assignments</h4>
+            <table>
+                <tr><td><strong>Router</strong></td><td>192.168.1.1</td></tr>
+                <tr><td><strong>Switch</strong></td><td>192.168.1.2</td></tr>
+                <tr><td><strong>Access Point</strong></td><td>192.168.1.3</td></tr>
+                <tr><td><strong>Reception PC</strong></td><td>192.168.1.10</td></tr>
+                <tr><td><strong>Owner PC</strong></td><td>192.168.1.11</td></tr>
+                <tr><td><strong>Printer</strong></td><td>192.168.1.20</td></tr>
+            </table>
+        </div>
+    </div>
+    <p><strong>DNS Servers:</strong> Primary: 8.8.8.8 | Secondary: 8.8.4.4</p>
+
+    <!-- ===== NETWORK SECURITY ===== -->
+    <h2>4. Network Security</h2>
+    <div class="two-col">
+        <div class="info-card">
+            <strong>🛡️ Firewall Configuration</strong>
+            • Stateful inspection firewall enabled<br>
+            • Inbound traffic restricted to required ports<br>
+            • Outbound traffic monitored and logged<br>
+            • Intrusion detection/prevention enabled<br>
+            • Logging and alerting configured
+        </div>
+        <div class="info-card">
+            <strong>📶 Wi-Fi Security</strong>
+            • WPA3 encryption for all wireless networks<br>
+            • Separate Staff Wi-Fi and Guest Wi-Fi networks<br>
+            • Guest network isolated from internal resources<br>
+            • MAC address filtering for staff devices<br>
+            • Hidden SSID for staff network (optional)
+        </div>
+        <div class="info-card">
+            <strong>💻 Endpoint Protection</strong>
+            • Antivirus software on all workstations<br>
+            • Automatic operating system updates enabled<br>
+            • HTTPS with SSL certificates for website<br>
+            • Regular security audits and vulnerability scanning<br>
+            • Endpoint Detection and Response (EDR) enabled
+        </div>
+        <div class="info-card">
+            <strong>🔐 Access Controls</strong>
+            • Role-Based Access Control (RBAC)<br>
+            • Network segmentation with VLANs<br>
+            • Admin-only access to network equipment<br>
+            • VPN for secure remote administration<br>
+            • Physical security for network hardware
+        </div>
+    </div>
+
+    <!-- ===== USER ACCESS CONTROL ===== -->
+    <h2>5. User Access Control</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>User Role</th>
+                <th>Access Level</th>
+                <th>Permissions</th>
+                <th>Network Access</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Customer</strong></td>
+                <td>Public</td>
+                <td>Own bookings only; view services, products, loyalty</td>
+                <td>Guest Wi-Fi only</td>
+            </tr>
+            <tr>
+                <td><strong>Staff (Beautician)</strong></td>
+                <td>Restricted</td>
+                <td>Assigned appointments; view own schedule; mark complete</td>
+                <td>Staff Wi-Fi + internal network</td>
+            </tr>
+            <tr>
+                <td><strong>Salon Owner (Liya)</strong></td>
+                <td>Business</td>
+                <td>Full operational access; analytics; product management</td>
+                <td>Staff Wi-Fi + internal network</td>
+            </tr>
+            <tr>
+                <td><strong>System Administrator</strong></td>
+                <td>Technical</td>
+                <td>Full administrative access; system configuration; security</td>
+                <td>Full network + VPN access</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ===== PASSWORD POLICY ===== -->
+    <h2>6. Password Policy</h2>
+    <div class="two-col">
+        <div class="info-card">
+            <strong>🔑 Password Requirements</strong>
+            • Minimum 12 characters<br>
+            • At least 1 uppercase letter<br>
+            • At least 1 lowercase letter<br>
+            • At least 1 number<br>
+            • At least 1 special character (!@#$%^&*)<br>
+            • Password expires every 90 days<br>
+            • Account lockout after 5 failed attempts
+        </div>
+        <div class="info-card">
+            <strong>🔐 Multi-Factor Authentication</strong>
+            • Required for administrators<br>
+            • SMS or authenticator app verification<br>
+            • Additional security layer for sensitive actions<br>
+            • Regular security awareness training<br>
+            • Password history (last 5 remembered)
+        </div>
+    </div>
+
+    <!-- ===== CLOUD INFRASTRUCTURE ===== -->
+    <h2>7. Cloud Infrastructure</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Component</th>
+                <th>Specification</th>
+                <th>Purpose</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Hosting Provider</strong></td>
+                <td>Hostinger / AWS / DigitalOcean</td>
+                <td>Cloud hosting for website and database</td>
+            </tr>
+            <tr>
+                <td><strong>Operating System</strong></td>
+                <td>Linux (Ubuntu 22.04 LTS)</td>
+                <td>Server OS</td>
+            </tr>
+            <tr>
+                <td><strong>Web Server</strong></td>
+                <td>Apache / Nginx</td>
+                <td>Hosting web application</td>
+            </tr>
+            <tr>
+                <td><strong>Application</strong></td>
+                <td>Laravel PHP Framework</td>
+                <td>Salon management system</td>
+            </tr>
+            <tr>
+                <td><strong>Database</strong></td>
+                <td>MySQL 8.0</td>
+                <td>Data storage</td>
+            </tr>
+            <tr>
+                <td><strong>Security</strong></td>
+                <td>HTTPS with SSL Certificates</td>
+                <td>Encrypted data transmission</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ===== BACKUP STRATEGY ===== -->
+    <h2>8. Backup Strategy</h2>
+    <div class="two-col">
+        <div class="info-card">
+            <strong>💾 Database Backup</strong>
+            • Daily automated database backups<br>
+            • 30-day retention period<br>
+            • Stored in cloud and external drive<br>
+            • Encrypted backup files<br>
+            • Backup verification performed weekly
+        </div>
+        <div class="info-card">
+            <strong>💿 Full Server Backup</strong>
+            • Weekly full server backup<br>
+            • Includes all website files<br>
+            • Configuration and settings backup<br>
+            • Off-site storage included<br>
+            • 8-week retention period
+        </div>
+    </div>
+
+    <h3>Backup Schedule</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Backup Type</th>
+                <th>Frequency</th>
+                <th>Retention</th>
+                <th>Storage Location</th>
+                <th>Verification</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Database</strong></td>
+                <td>Daily (02:00)</td>
+                <td>30 days</td>
+                <td>Cloud + External Drive</td>
+                <td>Weekly</td>
+            </tr>
+            <tr>
+                <td><strong>Full Server</strong></td>
+                <td>Weekly (Sunday 03:00)</td>
+                <td>8 weeks</td>
+                <td>Cloud + External Drive</td>
+                <td>Monthly</td>
+            </tr>
+            <tr>
+                <td><strong>Recovery Testing</strong></td>
+                <td>Monthly</td>
+                <td>N/A</td>
+                <td>Test restore validation</td>
+                <td>N/A</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ===== DISASTER RECOVERY ===== -->
+    <h2>9. Disaster Recovery Plan</h2>
+    <div class="highlight">
+        <p><strong>🎯 Target Recovery Time:</strong> Less than 2 hours</p>
+        <p><strong>📊 Recovery Point Objective:</strong> 24 hours (max data loss)</p>
+    </div>
+
+    <h3>Server Failure Recovery Procedure</h3>
+    <ol style="list-style: decimal; padding-left: 1.5rem; color: var(--text);">
+        <li style="margin-bottom: 0.5rem;">
+            <strong>Restore latest backup</strong> — Retrieve most recent backup from cloud or external drive
+        </li>
+        <li style="margin-bottom: 0.5rem;">
+            <strong>Reconnect database</strong> — Re-establish database connection and verify integrity
+        </li>
+        <li style="margin-bottom: 0.5rem;">
+            <strong>Verify website functionality</strong> — Test all critical features and modules
+        </li>
+        <li style="margin-bottom: 0.5rem;">
+            <strong>Resume operations</strong> — Confirm system is fully operational
+        </li>
+    </ol>
+
+    <h3>Disaster Recovery Scenarios</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Scenario</th>
+                <th>Recovery Method</th>
+                <th>Target RTO</th>
+                <th>Responsible</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Server Failure</strong></td>
+                <td>Restore from backup</td>
+                <td>&lt;2 hours</td>
+                <td>System Administrator</td>
+            </tr>
+            <tr>
+                <td><strong>Database Corruption</strong></td>
+                <td>Restore from daily backup</td>
+                <td>&lt;1 hour</td>
+                <td>System Administrator</td>
+            </tr>
+            <tr>
+                <td><strong>Data Loss</strong></td>
+                <td>Recover from encrypted backup</td>
+                <td>&lt;2 hours</td>
+                <td>Network Engineer</td>
+            </tr>
+            <tr>
+                <td><strong>Network Outage</strong></td>
+                <td>Failover to backup connection</td>
+                <td>&lt;30 minutes</td>
+                <td>Network Engineer</td>
+            </tr>
+            <tr>
+                <td><strong>Hardware Failure</strong></td>
+                <td>Replace hardware, restore from backup</td>
+                <td>&lt;4 hours</td>
+                <td>Network Engineer</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ===== PAYMENT SECURITY ===== -->
+    <h2>10. Payment Security</h2>
+    <div class="two-col">
+        <div class="info-card">
+            <strong>💳 Secure Transactions</strong>
+            • HTTPS encryption for all payment pages<br>
+            • Secure API communication with Yoco<br>
+            • Yoco processes all payment information<br>
+            • No payment card details stored on salon server<br>
+            • PCI DSS compliant through Yoco
+        </div>
+        <div class="info-card">
+            <strong>🔒 Compliance Measures</strong>
+            • Tokenization of payment data<br>
+            • Regular security audits<br>
+            • Secure payment gateway integration<br>
+            • Payment status verification<br>
+            • Fraud detection monitoring
+        </div>
+    </div>
+
+    <!-- ===== POPIA COMPLIANCE ===== -->
+    <h2>11. POPIA Compliance</h2>
+    <div class="two-col">
+        <div class="info-card">
+            <strong>🛡️ Data Protection</strong>
+            • Encrypt customer data at rest and in transit<br>
+            • Implement role-based access permissions<br>
+            • Maintain detailed audit logs<br>
+            • Secure backup storage with encryption<br>
+            • Data minimisation principle applied
+        </div>
+        <div class="info-card">
+            <strong>👤 Access & Privacy</strong>
+            • Automatic session timeout (15 minutes)<br>
+            • Clear privacy policy displayed on website<br>
+            • Customer consent for data collection<br>
+            • Right to access and deletion procedures<br>
+            • Data breach notification process
+        </div>
+    </div>
+
+    <h3>POPIA Compliance Checklist</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Requirement</th>
+                <th>Implementation</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Data Encryption</td>
+                <td>SSL/TLS + encrypted storage</td>
+                <td><span class="badge badge-success">✅ Implemented</span></td>
+            </tr>
+            <tr>
+                <td>Access Control</td>
+                <td>Role-Based Access Control (RBAC)</td>
+                <td><span class="badge badge-success">✅ Implemented</span></td>
+            </tr>
+            <tr>
+                <td>Audit Logging</td>
+                <td>User action logging enabled</td>
+                <td><span class="badge badge-success">✅ Implemented</span></td>
+            </tr>
+            <tr>
+                <td>Session Timeout</td>
+                <td>Automatic timeout after inactivity</td>
+                <td><span class="badge badge-success">✅ Implemented</span></td>
+            </tr>
+            <tr>
+                <td>Secure Backups</td>
+                <td>Encrypted off-site backups</td>
+                <td><span class="badge badge-success">✅ Implemented</span></td>
+            </tr>
+            <tr>
+                <td>Privacy Policy</td>
+                <td>Clear policy on website</td>
+                <td><span class="badge badge-success">✅ Implemented</span></td>
+            </tr>
+            <tr>
+                <td>Consent Management</td>
+                <td>Opt-in for data collection</td>
+                <td><span class="badge badge-success">✅ Implemented</span></td>
+            </tr>
+            <tr>
+                <td>Right to Access</td>
+                <td>Customer data access procedure</td>
+                <td><span class="badge badge-warning">⏳ In Progress</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ===== MAINTENANCE PLAN ===== -->
+    <h2>12. Network Maintenance Plan</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Frequency</th>
+                <th>Task</th>
+                <th>Responsible</th>
+                <th>Documentation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Weekly</strong></td>
+                <td>Check firewall logs; Verify backups; Install updates</td>
+                <td>System Administrator</td>
+                <td>Maintenance log</td>
+            </tr>
+            <tr>
+                <td><strong>Monthly</strong></td>
+                <td>Audit user accounts; Inspect hardware; Review security logs</td>
+                <td>System Administrator</td>
+                <td>Audit report</td>
+            </tr>
+            <tr>
+                <td><strong>Every 6 Months</strong></td>
+                <td>Perform security assessment; Test disaster recovery</td>
+                <td>Network Engineer</td>
+                <td>Security assessment report</td>
+            </tr>
+            <tr>
+                <td><strong>Yearly</strong></td>
+                <td>Full infrastructure review; Hardware refresh assessment</td>
+                <td>Network Engineer</td>
+                <td>Annual review report</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ===== CONCLUSION ===== -->
+    <h2>13. Conclusion</h2>
+    <div class="highlight">
+        <p style="font-size: 1.05rem; font-weight: 500; color: var(--white);">
+            The proposed network infrastructure provides a secure, reliable and scalable environment for the 
+            Liya's Beauty Boutique Management System.
+        </p>
+        <p style="margin-top: 0.5rem;">
+            It supports secure online bookings, cloud hosting, protected customer information, secure payment 
+            processing, and future business growth.
+        </p>
+    </div>
+
+    <div class="two-col">
+        <div class="info-card">
+            <strong>✅ Key Benefits</strong>
+            • Secure network segmentation between staff and guest Wi-Fi<br>
+            • POPIA-compliant data protection with encrypted storage<br>
+            • 24/7 online booking with Yoco payment integration<br>
+            • Robust backup strategy with disaster recovery plan<br>
+            • Scalable infrastructure for future business growth
+        </div>
+        <div class="info-card">
+            <strong>📋 Recommendations</strong>
+            • Implement regular security awareness training<br>
+            • Schedule quarterly penetration testing<br>
+            • Review POPIA compliance quarterly<br>
+            • Consider cloud migration for full scalability<br>
+            • Implement 24/7 network monitoring
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <div class="footer">
+        <p>
+            <i class="ri-sparkling-line"></i> 
+            Liya's Beauty Boutique — Network Engineering & Infrastructure &nbsp;|&nbsp; 
+            <i class="ri-user-line"></i> Network Engineer: Khanyisile Zulu &nbsp;|&nbsp;
+            <i class="ri-calendar-line"></i> June 2026
+        </p>
+        <p style="font-size: 0.75rem; margin-top: 0.5rem;">
+            Binary Bit Technologies &bull; All Rights Reserved
+        </p>
+    </div>
+
+</div>
+
+<script>
+    mermaid.initialize({
+        startOnLoad: true,
+        theme: 'base',
+        themeVariables: {
+            background: '#111',
+            primaryColor: '#181818',
+            primaryBorderColor: '#C9A66B',
+            primaryTextColor: '#e0e0e0',
+            lineColor: '#C9A66B',
+            secondaryColor: '#0A0A0A',
+            tertiaryColor: '#181818',
+            nodeBorder: '#C9A66B',
+            nodeTextColor: '#e0e0e0',
+            edgeLabelBackground: '#111'
+        },
+        flowchart: { useMaxWidth: true }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liya's Beauty Boutique - Network Testing Plan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :root {
+            --black: #0A0A0A;
+            --gold: #C9A66B;
+            --champagne: #E5D2A0;
+            --white: #FFFFFF;
+            --dark-surface: #111111;
+            --card-dark: #181818;
+            --border-gold: rgba(201,166,107,0.25);
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --text: #e0e0e0;
+            --muted: rgba(255,255,255,0.45);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--dark-surface);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid var(--border-gold);
+        }
+        h1 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--gold);
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        h2 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--champagne);
+            margin: 2rem 0 1rem 0;
+            border-left: 5px solid var(--gold);
+            padding-left: 1rem;
+        }
+        h3 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin: 1.5rem 0 0.8rem 0;
+        }
+        p, li { color: var(--text); line-height: 1.8; margin-bottom: 0.5rem; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+            border-radius: 0.8rem;
+            overflow: hidden;
+        }
+        th {
+            background: var(--gold);
+            color: var(--black);
+            text-align: left;
+            padding: 12px 16px;
+            font-weight: 600;
+        }
+        td {
+            padding: 10px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            color: var(--text);
+            vertical-align: top;
+        }
+        tr:hover td { background: rgba(201,166,107,0.05); }
+        .two-col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .info-card {
+            background: var(--card-dark);
+            border: 1px solid var(--border-gold);
+            border-radius: 0.8rem;
+            padding: 1.2rem 1.5rem;
+            border-left: 4px solid var(--gold);
+        }
+        .info-card strong {
+            color: var(--white);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .highlight {
+            background: rgba(201,166,107,0.08);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem 2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 9px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border: 1px solid var(--border-gold);
+            color: var(--champagne);
+            background: rgba(201,166,107,0.06);
+        }
+        .badge-success { color: #4CAF50; border-color: #4CAF50; background: rgba(76,175,80,0.1); }
+        .badge-danger { color: #f44336; border-color: #f44336; background: rgba(244,67,54,0.1); }
+        .badge-warning { color: #FFC107; border-color: #FFC107; background: rgba(255,193,7,0.1); }
+        .footer {
+            text-align: center;
+            padding: 2rem 0 0 0;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-gold);
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .header-logo img {
+            height: 50px;
+            width: auto;
+            border-radius: 8px;
+        }
+        .header-logo .divider {
+            width: 1px;
+            height: 40px;
+            background: var(--border-gold);
+        }
+        @media (max-width: 700px) {
+            body { padding: 1rem; }
+            .container { padding: 1rem; }
+            h1 { font-size: 1.8rem; }
+            table { font-size: 0.75rem; display: block; overflow-x: auto; }
+            .two-col { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-logo">
+        <img src="https://a.lovart.ai/artifacts/user/dLNsFmAtEXuP38os.png" alt="Binary Bit Technologies">
+        <div class="divider"></div>
+        <img src="logo.jpeg" alt="Liya's Beauty Boutique" style="height:50px; width:auto; border-radius:8px;">
+    </div>
+
+    <h1>🧪 Network Testing Plan</h1>
+    <p style="color: var(--muted); margin-bottom: 2rem;">
+        <i class="ri-user-line"></i> <strong>Network Engineer:</strong> Khanyisile Zulu &nbsp;|&nbsp;
+        <i class="ri-calendar-line"></i> June 2026 &nbsp;|&nbsp;
+        <span class="badge badge-success"><i class="ri-checkbox-circle-line"></i> READY FOR TESTING</span>
+    </p>
+
+    <h2>1. Testing Overview</h2>
+    <div class="highlight">
+        <p>This document outlines the comprehensive testing strategy for the Liya's Beauty Boutique network infrastructure. All tests must be completed and signed off before the system goes live.</p>
+    </div>
+
+    <h2>2. Test Categories</h2>
+    <div class="two-col">
+        <div class="info-card">
+            <strong>🔌 Physical Connectivity</strong>
+            • Cable continuity testing<br>
+            • Power supply verification<br>
+            • Hardware installation check<br>
+            • UPS functionality test<br>
+            • LED status verification
+        </div>
+        <div class="info-card">
+            <strong>🌐 Network Connectivity</strong>
+            • Device-to-device communication<br>
+            • Internet connectivity test<br>
+            • DNS resolution verification<br>
+            • DHCP server testing<br>
+            • VLAN segmentation test
+        </div>
+        <div class="info-card">
+            <strong>🔒 Security Testing</strong>
+            • Firewall rule verification<br>
+            • Wi-Fi encryption testing<br>
+            • Access control validation<br>
+            • Intrusion detection testing<br>
+            • VPN connectivity test
+        </div>
+        <div class="info-card">
+            <strong>⚡ Performance Testing</strong>
+            • Network speed test<br>
+            • Latency measurement<br>
+            • Packet loss detection<br>
+            • Throughput testing<br>
+            • Load testing
+        </div>
+    </div>
+
+    <h2>3. Detailed Test Cases</h2>
+
+    <h3>3.1 Physical Connectivity Tests</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Test ID</th>
+                <th>Test Description</th>
+                <th>Expected Result</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>PHY-001</td>
+                <td>Verify all network cables are properly connected</td>
+                <td>All link lights active on switch</td>
+                <td><span class="badge badge-warning">⏳ Pending</span></td>
+            </tr>
+            <tr>
+                <td>PHY-002</td>
+                <td>Test UPS power backup</td>
+                <td>All devices stay powered for 15+ minutes</td>
+                <td><span class="badge badge-warning">⏳ Pending</span></td>
+            </tr>
+            <tr>
+                <td>PHY-003</td>
+                <td>Verify hardware installation quality</td>
+                <td>All devices securely mounted</td>
+                <td><span class="badge badge-warning">⏳ Pending</span></td>
+            </tr>
+            <tr>
+                <td>PHY-004</td>
+                <td>Test cable labeling accuracy</td>
+                <td>All cables correctly labeled</td>
+                <td><span class="badge badge-warning">⏳ Pending</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>3.2 Network Connectivity Tests</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Test ID</th>
+                <th>Test Description</th>
+                <th>Expected Result</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>NET-001</td>
+                <td>Ping test from Reception PC to Gateway</td>
+                <td>0% packet loss, &lt;1ms response</td>
+                <td><span class="badge badge-warning">⏳ Pending</span></td>
+            </tr>
+            <tr>
+                <td>NET-002</td>
+                <td>Ping test from Owner PC to Internet (8.8.8.8)</td>
+                <td>0% packet loss, &lt;50ms response</td>
+                <td><span class="badge badge-warning">⏳ Pending</span></td>
+            </tr>
+            <tr>
+                <td>NET-003</td>
+                <td>DNS resolution test (google.com)</td>
+                <td>IP address resolved correctly</td>
+                <td><span class="badge badge-warning">⏳ Pending</span></td>
+            </tr>
+            <tr>
+                <td>NET-004</td>
+                <td>Wi-Fi connectivity test (Staff network)</td>
+                <td>All staff devices can connect</td>
+                <td><span class="badge badge-warning">⏳ Pending</span></td>
+            </tr>
+            <tr>
+                <td>NET-005</td>
+                <td>Wi-Fi connectivity test (Guest network)</td>
+                <td>Guest devices can connect but isolated</td>
+                <td><span class="badge badge-warning">⏳ Pending</span></td>
+            </tr>
+            <tr>
+                <td>NET-006</td>
+                <td>VLAN segmentation test</td>
+                <td>Staff & Guest networks separated</td>
+                <td><span class="badge badge-warning">⏳ Pending</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>3.3 Security Tests</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Test ID</th>
+                <th>Test Description</th>
+                <th>Expected Result</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>SEC-001</td>
+                <td>Firewall rules verification</td>
+                <td>All rules correctly applied</td>
+                <td><span class="badge badge-warning">⏳ Pending</span></td>
+            </tr>
+            <tr>
+                <td>SEC-002</td>
+                <td>Wi-Fi encryption verification</td>
+                <td>WPA3 enabled on both networks</td>
+                <td><span class="badge badge-warning">⏳ Pending</span></td>
+            </tr>
+            <tr>
+                <td>SEC-003</td>
+                <td>Access control validation</td>
+                <td>Only authorized users can access</td>
+                <td><span class="badge badge-warning">⏳ Pending</span></td>
+            </tr>
+            <tr>
+                <td>SEC-004</td>
+                <td>Antivirus installation verification</td>
+                <td>All PCs have active antivirus</td>
+                <td><span class="badge badge-warning">⏳ Pending</span></td>
+            </tr>
+            <tr>
+                <td>SEC-005</td>
+                <td>SSL certificate verification</td>
+                <td>HTTPS enabled for all web traffic</td>
+                <td><span class="badge badge-warning">⏳ Pending</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>3.4 Performance Tests</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Test ID</th>
+                <th>Test Description</th>
+                <th>Expected Result</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>PER-001</td>
+                <td>Internet speed test from Reception PC</td>
+                <td>&gt;50 Mbps download, &gt;10 Mbps upload</td>
+                <td><span class="badge badge-warning">⏳ Pending</span></td>
+            </tr>
+            <tr>
+                <td>PER-002</td>
+                <td>Wi-Fi speed test (5GHz band)</td>
+                <td>&gt;100 Mbps throughput</td>
+                <td><span class="badge badge-warning">⏳ Pending</span></td>
+            </tr>
+            <tr>
+                <td>PER-003</td>
+                <td>Network latency measurement</td>
+                <td>&lt;5ms internal, &lt;50ms external</td>
+                <td><span class="badge badge-warning">⏳ Pending</span></td>
+            </tr>
+            <tr>
+                <td>PER-004</td>
+                <td>Packet loss test (24 hours)</td>
+                <td>&lt;0.5% packet loss</td>
+                <td><span class="badge badge-warning">⏳ Pending</span></td>
+            </tr>
+            <tr>
+                <td>PER-005</td>
+                <td>Concurrent user test (10 devices)</td>
+                <td>All devices maintain connectivity</td>
+                <td><span class="badge badge-warning">⏳ Pending</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>4. Testing Equipment & Tools</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Tool</th>
+                <th>Purpose</th>
+                <th>Owner</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Network Cable Tester</td>
+                <td>Verify cable continuity</td>
+                <td>Network Engineer</td>
+            </tr>
+            <tr>
+                <td>Speedtest.net / Ookla</td>
+                <td>Internet speed measurement</td>
+                <td>System Administrator</td>
+            </tr>
+            <tr>
+                <td>Ping / Traceroute</td>
+                <td>Network connectivity testing</td>
+                <td>Network Engineer</td>
+            </tr>
+            <tr>
+                <td>Wireshark</td>
+                <td>Packet analysis</td>
+                <td>Network Engineer</td>
+            </tr>
+            <tr>
+                <td>Nmap</td>
+                <td>Network scanning</td>
+                <td>System Administrator</td>
+            </tr>
+            <tr>
+                <td>Wi-Fi Analyzer</td>
+                <td>Wi-Fi signal strength testing</td>
+                <td>Network Engineer</td>
+            </tr>
+            <tr>
+                <td>iPerf3</td>
+                <td>Network throughput testing</td>
+                <td>Network Engineer</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>5. Test Schedule</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Phase</th>
+                <th>Tests</th>
+                <th>Duration</th>
+                <th>Date</th>
+                <th>Responsible</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Phase 1</strong></td>
+                <td>Physical Connectivity Tests</td>
+                <td>1 day</td>
+                <td>13 July 2026</td>
+                <td>Khanyisile</td>
+            </tr>
+            <tr>
+                <td><strong>Phase 2</strong></td>
+                <td>Network Connectivity Tests</td>
+                <td>1 day</td>
+                <td>14 July 2026</td>
+                <td>Khanyisile</td>
+            </tr>
+            <tr>
+                <td><strong>Phase 3</strong></td>
+                <td>Security Tests</td>
+                <td>2 days</td>
+                <td>14-15 July 2026</td>
+                <td>Lungile</td>
+            </tr>
+            <tr>
+                <td><strong>Phase 4</strong></td>
+                <td>Performance Tests</td>
+                <td>2 days</td>
+                <td>15-16 July 2026</td>
+                <td>Trevor</td>
+            </tr>
+            <tr>
+                <td><strong>Phase 5</strong></td>
+                <td>End-to-End Testing</td>
+                <td>1 day</td>
+                <td>16 July 2026</td>
+                <td>All</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>6. Test Sign-Off</h2>
+    <!-- Testing Schedule -->
+<table>
+    <thead>
+        <tr>
+            <th>Phase</th>
+            <th>Tests</th>
+            <th>Duration</th>
+            <th>Date</th>
+            <th>Responsible</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Phase 1</strong></td>
+            <td>Physical Connectivity Tests</td>
+            <td>1 day</td>
+            <td>13 July 2026</td>
+            <td>Kagiso</td>
+        </tr>
+        <tr>
+            <td><strong>Phase 2</strong></td>
+            <td>Network Connectivity Tests</td>
+            <td>1 day</td>
+            <td>14 July 2026</td>
+            <td>Kagiso</td>
+        </tr>
+        <!-- Rest of table -->
+    </tbody>
+</table>
+    <div class="footer">
+        <p><i class="ri-sparkling-line"></i> Liya's Beauty Boutique — Network Testing Plan &nbsp;|&nbsp; <i class="ri-user-line"></i> Network Engineer: Khanyisile Zulu &nbsp;|&nbsp; <i class="ri-calendar-line"></i> June 2026</p>
+        <p style="font-size: 0.75rem; margin-top: 0.5rem;">Binary Bit Technologies &bull; All Rights Reserved</p>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liya's Beauty Boutique - Network Security Policy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        /* Copy all styles from previous document here */
+        :root {
+            --black: #0A0A0A;
+            --gold: #C9A66B;
+            --champagne: #E5D2A0;
+            --nude: #F7F2EB;
+            --white: #FFFFFF;
+            --dark-surface: #111111;
+            --card-dark: #181818;
+            --border-gold: rgba(201,166,107,0.25);
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --font-btn: 'Poppins', sans-serif;
+            --text: #e0e0e0;
+            --muted: rgba(255,255,255,0.45);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--dark-surface);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid var(--border-gold);
+        }
+        h1 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--gold);
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        h2 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--champagne);
+            margin: 2rem 0 1rem 0;
+            border-left: 5px solid var(--gold);
+            padding-left: 1rem;
+        }
+        h3 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin: 1.5rem 0 0.8rem 0;
+        }
+        p, li { color: var(--text); line-height: 1.8; margin-bottom: 0.5rem; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+            border-radius: 0.8rem;
+            overflow: hidden;
+        }
+        th {
+            background: var(--gold);
+            color: var(--black);
+            text-align: left;
+            padding: 12px 16px;
+            font-weight: 600;
+        }
+        td {
+            padding: 10px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            color: var(--text);
+            vertical-align: top;
+        }
+        .two-col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .info-card {
+            background: var(--card-dark);
+            border: 1px solid var(--border-gold);
+            border-radius: 0.8rem;
+            padding: 1.2rem 1.5rem;
+            border-left: 4px solid var(--gold);
+            transition: all 0.3s ease;
+        }
+        .info-card strong {
+            color: var(--white);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .highlight {
+            background: rgba(201,166,107,0.08);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem 2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 9px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border: 1px solid var(--border-gold);
+            color: var(--champagne);
+            background: rgba(201,166,107,0.06);
+        }
+        .badge-success {
+            color: #4CAF50;
+            border-color: #4CAF50;
+            background: rgba(76, 175, 80, 0.1);
+        }
+        .footer {
+            text-align: center;
+            padding: 2rem 0 0 0;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-gold);
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .header-logo img {
+            height: 50px;
+            width: auto;
+            border-radius: 8px;
+        }
+        .header-logo .divider {
+            width: 1px;
+            height: 40px;
+            background: var(--border-gold);
+        }
+        @media (max-width: 700px) {
+            body { padding: 1rem; }
+            .container { padding: 1rem; }
+            h1 { font-size: 1.8rem; }
+            table { font-size: 0.75rem; display: block; overflow-x: auto; }
+            .two-col { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-logo">
+        <img src="https://a.lovart.ai/artifacts/user/dLNsFmAtEXuP38os.png" alt="Binary Bit Technologies">
+        <div class="divider"></div>
+        <img src="logo.jpeg" alt="Liya's Beauty Boutique" style="height:50px; width:auto; border-radius:8px;">
+    </div>
+
+    <h1>🔐 Network Security Policy</h1>
+    <p style="color: var(--muted); margin-bottom: 2rem;">
+        <i class="ri-user-line"></i> <strong>Network Engineer:</strong> Khanyisile Zulu &nbsp;|&nbsp;
+        <i class="ri-calendar-line"></i> June 2026 &nbsp;|&nbsp;
+        <span class="badge badge-success"><i class="ri-checkbox-circle-line"></i> APPROVED</span>
+    </p>
+
+    <!-- ===== SECURITY POLICY ===== -->
+    <h2>1. Security Policy Overview</h2>
+    <div class="highlight">
+        <p>This Security Policy defines the rules and procedures for protecting the network, systems, and data at Liya's Beauty Boutique. All staff and contractors must comply with these policies to ensure the confidentiality, integrity, and availability of salon systems.</p>
+    </div>
+
+    <h2>2. Network Security Controls</h2>
+    <div class="two-col">
+        <div class="info-card">
+            <strong>🛡️ Firewall Rules</strong>
+            • Block all inbound traffic by default<br>
+            • Allow only required services (HTTP/HTTPS, VPN)<br>
+            • Log all traffic for audit purposes<br>
+            • Apply rule updates quarterly<br>
+            • Monitor for suspicious activity
+        </div>
+        <div class="info-card">
+            <strong>📶 Wireless Security</strong>
+            • WPA3 encryption mandatory<br>
+            • Separate Staff and Guest networks<br>
+            • Guest network isolated from internal<br>
+            • MAC filtering for staff devices<br>
+            • Wi-Fi password changed quarterly
+        </div>
+        <div class="info-card">
+            <strong>💻 Endpoint Security</strong>
+            • Antivirus on all workstations<br>
+            • Automatic OS updates enabled<br>
+            • Application whitelisting where possible<br>
+            • USB port restrictions<br>
+            • Screen lock after 5 minutes
+        </div>
+        <div class="info-card">
+            <strong>🔐 Access Control</strong>
+            • Role-Based Access Control (RBAC)<br>
+            • Least privilege principle<br>
+            • Admin accounts restricted<br>
+            • VPN for remote access<br>
+            • Access reviews monthly
+        </div>
+    </div>
+
+    <h2>3. Password Policy</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Requirement</th>
+                <th>Policy</th>
+                <th>Enforcement</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Minimum Length</td>
+                <td>12 characters</td>
+                <td>Enforced by system</td>
+            </tr>
+            <tr>
+                <td>Complexity</td>
+                <td>Uppercase, lowercase, number, special</td>
+                <td>Enforced by system</td>
+            </tr>
+            <tr>
+                <td>Expiration</td>
+                <td>90 days</td>
+                <td>Enforced by system</td>
+            </tr>
+            <tr>
+                <td>Account Lockout</td>
+                <td>5 failed attempts</td>
+                <td>Enforced by system</td>
+            </tr>
+            <tr>
+                <td>Multi-Factor</td>
+                <td>Required for admins</td>
+                <td>Enforced by system</td>
+            </tr>
+            <tr>
+                <td>Password History</td>
+                <td>5 previous passwords remembered</td>
+                <td>Enforced by system</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>4. Data Protection & Privacy</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Requirement</th>
+                <th>Implementation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Data Encryption</td>
+                <td>Encrypt data at rest and in transit</td>
+                <td>SSL/TLS + encrypted storage</td>
+            </tr>
+            <tr>
+                <td>Access Control</td>
+                <td>Role-based access to data</td>
+                <td>RBAC implemented</td>
+            </tr>
+            <tr>
+                <td>Audit Logging</td>
+                <td>Log all data access</td>
+                <td>Audit logs enabled</td>
+            </tr>
+            <tr>
+                <td>Data Retention</td>
+                <td>5-year retention policy</td>
+                <td>Automated retention</td>
+            </tr>
+            <tr>
+                <td>Data Backup</td>
+                <td>Regular encrypted backups</td>
+                <td>Daily + Weekly backup</td>
+            </tr>
+            <tr>
+                <td>Privacy Policy</td>
+                <td>Clear policy on website</td>
+                <td>Published policy</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>5. Incident Response Plan</h2>
+    <div class="two-col">
+        <div class="info-card">
+            <strong>🚨 Detection</strong>
+            • IDS/IPS monitoring<br>
+            • Log analysis weekly<br>
+            • Automated alerts<br>
+            • Staff reporting
+        </div>
+        <div class="info-card">
+            <strong>📋 Response</strong>
+            • Isolate affected systems<br>
+            • Preserve evidence<br>
+            • Notify management<br>
+            • Document incident
+        </div>
+        <div class="info-card">
+            <strong>🔧 Recovery</strong>
+            • Restore from backup<br>
+            • Apply security patches<br>
+            • Verify system integrity<br>
+            • Resume operations
+        </div>
+        <div class="info-card">
+            <strong>📝 Post-Incident</strong>
+            • Root cause analysis<br>
+            • Update security measures<br>
+            • Staff training<br>
+            • Incident report
+        </div>
+    </div>
+
+    <h2>6. POPIA Compliance</h2>
+    <!-- Sign-Off Section -->
+<table>
+    <thead>
+        <tr>
+            <th>Role</th>
+            <th>Name</th>
+            <th>Signature</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Network Engineer</td>
+            <td>Kagiso Nkalanga</td>
+            <td>_________________</td>
+            <td>_________</td>
+        </tr>
+        <tr>
+            <td>System Administrator</td>
+            <td>Lungile M.</td>
+            <td>_________________</td>
+            <td>_________</td>
+        </tr>
+        <tr>
+            <td>Salon Owner</td>
+            <td>Liya</td>
+            <td>_________________</td>
+            <td>_________</td>
+        </tr>
+    </tbody>
+</table>
+    <h2>7. Staff Security Training</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Training Module</th>
+                <th>Content</th>
+                <th>Frequency</th>
+                <th>Duration</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Security Awareness</td>
+                <td>Password security, phishing, social engineering</td>
+                <td>Quarterly</td>
+                <td>2 hours</td>
+            </tr>
+            <tr>
+                <td>Data Protection</td>
+                <td>POPIA compliance, customer data handling</td>
+                <td>Half-yearly</td>
+                <td>3 hours</td>
+            </tr>
+            <tr>
+                <td>Incident Response</td>
+                <td>Reporting security incidents</td>
+                <td>Yearly</td>
+                <td>1 hour</td>
+            </tr>
+            <tr>
+                <td>Wi-Fi Security</td>
+                <td>Secure Wi-Fi usage, guest network policy</td>
+                <td>Monthly</td>
+                <td>30 minutes</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>8. Security Audit Schedule</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Audit Type</th>
+                <th>Frequency</th>
+                <th>Responsible</th>
+                <th>Deliverable</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Vulnerability Scan</td>
+                <td>Weekly</td>
+                <td>System Administrator</td>
+                <td>Scan report</td>
+            </tr>
+            <tr>
+                <td>Access Review</td>
+                <td>Monthly</td>
+                <td>Network Engineer</td>
+                <td>Access list review</td>
+            </tr>
+            <tr>
+                <td>Penetration Test</td>
+                <td>Quarterly</td>
+                <td>External auditor</td>
+                <td>Pen test report</td>
+            </tr>
+            <tr>
+                <td>Compliance Audit</td>
+                <td>Half-yearly</td>
+                <td>Network Engineer</td>
+                <td>Compliance report</td>
+            </tr>
+            <tr>
+                <td>Risk Assessment</td>
+                <td>Yearly</td>
+                <td>Network Engineer</td>
+                <td>Risk register update</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>9. Policy Sign-Off</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Role</th>
+                <th>Name</th>
+                <th>Signature</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Network Engineer</td>
+                <td>Khanyisile Zulu</td>
+                <td>_________________</td>
+                <td>_________</td>
+            </tr>
+            <tr>
+                <td>System Administrator</td>
+                <td>Lungile M.</td>
+                <td>_________________</td>
+                <td>_________</td>
+            </tr>
+            <tr>
+                <td>Salon Owner</td>
+                <td>Liya</td>
+                <td>_________________</td>
+                <td>_________</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="footer">
+        <p><i class="ri-sparkling-line"></i> Liya's Beauty Boutique — Network Security Policy &nbsp;|&nbsp; <i class="ri-user-line"></i> Network Engineer: Khanyisile Zulu &nbsp;|&nbsp; <i class="ri-calendar-line"></i> June 2026</p>
+        <p style="font-size: 0.75rem; margin-top: 0.5rem;">Binary Bit Technologies &bull; All Rights Reserved</p>
+    </div>
+</div>
+
+</body>
+</html>

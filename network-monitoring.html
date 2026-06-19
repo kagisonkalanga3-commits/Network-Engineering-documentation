@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liya's Beauty Boutique - Network Monitoring Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :root {
+            --black: #0A0A0A;
+            --gold: #C9A66B;
+            --champagne: #E5D2A0;
+            --white: #FFFFFF;
+            --dark-surface: #111111;
+            --card-dark: #181818;
+            --border-gold: rgba(201,166,107,0.25);
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --text: #e0e0e0;
+            --muted: rgba(255,255,255,0.45);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--dark-surface);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid var(--border-gold);
+        }
+        h1 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--gold);
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        h2 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--champagne);
+            margin: 2rem 0 1rem 0;
+            border-left: 5px solid var(--gold);
+            padding-left: 1rem;
+        }
+        h3 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin: 1.5rem 0 0.8rem 0;
+        }
+        h4 {
+            font-weight: 600;
+            color: var(--champagne);
+            margin: 1rem 0 0.5rem 0;
+        }
+        p, li { color: var(--text); line-height: 1.8; margin-bottom: 0.5rem; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+            border-radius: 0.8rem;
+            overflow: hidden;
+        }
+        th {
+            background: var(--gold);
+            color: var(--black);
+            text-align: left;
+            padding: 12px 16px;
+            font-weight: 600;
+        }
+        td {
+            padding: 10px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            color: var(--text);
+            vertical-align: top;
+        }
+        tr:hover td { background: rgba(201,166,107,0.05); }
+        .two-col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .three-col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .info-card {
+            background: var(--card-dark);
+            border: 1px solid var(--border-gold);
+            border-radius: 0.8rem;
+            padding: 1.2rem 1.5rem;
+            border-left: 4px solid var(--gold);
+        }
+        .info-card strong {
+            color: var(--white);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .highlight {
+            background: rgba(201,166,107,0.08);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem 2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 9px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border: 1px solid var(--border-gold);
+            color: var(--champagne);
+            background: rgba(201,166,107,0.06);
+        }
+        .badge-success { color: #4CAF50; border-color: #4CAF50; background: rgba(76,175,80,0.1); }
+        .badge-danger { color: #f44336; border-color: #f44336; background: rgba(244,67,54,0.1); }
+        .badge-warning { color: #FFC107; border-color: #FFC107; background: rgba(255,193,7,0.1); }
+        .badge-info { color: #2196F3; border-color: #2196F3; background: rgba(33,150,243,0.1); }
+        .footer {
+            text-align: center;
+            padding: 2rem 0 0 0;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border-gold);
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .header-logo img {
+            height: 50px;
+            width: auto;
+            border-radius: 8px;
+        }
+        .header-logo .divider {
+            width: 1px;
+            height: 40px;
+            background: var(--border-gold);
+        }
+        .status-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+        .status-dot.green { background: #4CAF50; }
+        .status-dot.yellow { background: #FFC107; }
+        .status-dot.red { background: #f44336; }
+        .status-dot.grey { background: #666; }
+        @media (max-width: 700px) {
+            body { padding: 1rem; }
+            .container { padding: 1rem; }
+            h1 { font-size: 1.8rem; }
+            table { font-size: 0.75rem; display: block; overflow-x: auto; }
+            .two-col, .three-col { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-logo">
+        <img src="https://a.lovart.ai/artifacts/user/dLNsFmAtEXuP38os.png" alt="Binary Bit Technologies">
+        <div class="divider"></div>
+        <img src="logo.jpeg" alt="Liya's Beauty Boutique" style="height:50px; width:auto; border-radius:8px;">
+    </div>
+
+    <h1>📊 Network Monitoring Guide</h1>
+    <p style="color: var(--muted); margin-bottom: 2rem;">
+        <i class="ri-user-line"></i> <strong>Network Engineer:</strong> Kagiso Nkalanga &nbsp;|&nbsp;
+        <i class="ri-calendar-line"></i> June 2026 &nbsp;|&nbsp;
+        <span class="badge badge-success"><i class="ri-checkbox-circle-line"></i> ACTIVE</span>
+    </p>
+
+    <!-- ===== MONITORING OVERVIEW ===== -->
+    <h2>1. Monitoring Overview</h2>
+    <div class="highlight">
+        <p>This guide defines the network monitoring strategy for Liya's Beauty Boutique. Continuous monitoring ensures system availability, performance, and security. All network devices and services are monitored 24/7 to detect and respond to issues proactively.</p>
+    </div>
+
+    <!-- ===== MONITORING DASHBOARD ===== -->
+    <h2>2. Real-Time Monitoring Dashboard</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+        <div style="background: var(--card-dark); padding: 1.2rem; border-radius: 0.8rem; text-align: center; border: 1px solid var(--border-gold);">
+            <div style="font-size: 2.5rem; margin-bottom: 0.3rem;">🟢</div>
+            <strong style="color: var(--white);">All Systems</strong><br>
+            <span style="font-size: 0.8rem; color: var(--muted);">Operational</span>
+            <div style="margin-top: 0.3rem;"><span class="badge badge-success">99.9% Uptime</span></div>
+        </div>
+        <div style="background: var(--card-dark); padding: 1.2rem; border-radius: 0.8rem; text-align: center; border: 1px solid var(--border-gold);">
+            <div style="font-size: 2.5rem; margin-bottom: 0.3rem;">📶</div>
+            <strong style="color: var(--white);">Wi-Fi</strong><br>
+            <span style="font-size: 0.8rem; color: var(--muted);">Signal: -55dBm</span>
+            <div style="margin-top: 0.3rem;"><span class="badge badge-success">Excellent</span></div>
+        </div>
+        <div style="background: var(--card-dark); padding: 1.2rem; border-radius: 0.8rem; text-align: center; border: 1px solid var(--border-gold);">
+            <div style="font-size: 2.5rem; margin-bottom: 0.3rem;">💾</div>
+            <strong style="color: var(--white);">Backup</strong><br>
+            <span style="font-size: 0.8rem; color: var(--muted);">Last: 02:00 today</span>
+            <div style="margin-top: 0.3rem;"><span class="badge badge-success">100% Success</span></div>
+        </div>
+        <div style="background: var(--card-dark); padding: 1.2rem; border-radius: 0.8rem; text-align: center; border: 1px solid var(--border-gold);">
+            <div style="font-size: 2.5rem; margin-bottom: 0.3rem;">🌐</div>
+            <strong style="color: var(--white);">Internet</strong><br>
+            <span style="font-size: 0.8rem; color: var(--muted);">98 Mbps / 12 Mbps</span>
+            <div style="margin-top: 0.3rem;"><span class="badge badge-success">Stable</span></div>
+        </div>
+        <div style="background: var(--card-dark); padding: 1.2rem; border-radius: 0.8rem; text-align: center; border: 1px solid var(--border-gold);">
+            <div style="font-size: 2.5rem; margin-bottom: 0.3rem;">🛡️</div>
+            <strong style="color: var(--white);">Security</strong><br>
+            <span style="font-size: 0.8rem; color: var(--muted);">No threats detected</span>
+            <div style="margin-top: 0.3rem;"><span class="badge badge-success">Secure</span></div>
+        </div>
+        <div style="background: var(--card-dark); padding: 1.2rem; border-radius: 0.8rem; text-align: center; border: 1px solid var(--border-gold);">
+            <div style="font-size: 2.5rem; margin-bottom: 0.3rem;">⏱️</div>
+            <strong style="color: var(--white);">Response Time</strong><br>
+            <span style="font-size: 0.8rem; color: var(--muted);">Internal: 2ms</span>
+            <div style="margin-top: 0.3rem;"><span class="badge badge-success">Optimal</span></div>
+        </div>
+    </div>
+
+    <!-- ===== MONITORING TOOLS ===== -->
+    <h2>3. Monitoring Tools</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Tool</th>
+                <th>Purpose</th>
+                <th>Monitoring Type</th>
+                <th>Frequency</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Ping Monitoring</strong></td>
+                <td>Device availability</td>
+                <td>Uptime/Downtime</td>
+                <td>Continuous (5 min intervals)</td>
+                <td><span class="badge badge-success">Active</span></td>
+            </tr>
+            <tr>
+                <td><strong>SNMP Monitoring</strong></td>
+                <td>Switch, router, AP health</td>
+                <td>Performance</td>
+                <td>Continuous (5 min intervals)</td>
+                <td><span class="badge badge-success">Active</span></td>
+            </tr>
+            <tr>
+                <td><strong>Wi-Fi Analyzer</strong></td>
+                <td>Signal strength, interference</td>
+                <td>Wireless</td>
+                <td>Weekly</td>
+                <td><span class="badge badge-success">Active</span></td>
+            </tr>
+            <tr>
+                <td><strong>Speed Tests</strong></td>
+                <td>Internet bandwidth</td>
+                <td>Performance</td>
+                <td>Daily</td>
+                <td><span class="badge badge-success">Active</span></td>
+            </tr>
+            <tr>
+                <td><strong>Log Analysis</strong></td>
+                <td>Security events, errors</td>
+                <td>Security</td>
+                <td>Continuous</td>
+                <td><span class="badge badge-success">Active</span></td>
+            </tr>
+            <tr>
+                <td><strong>Backup Verification</strong></td>
+                <td>Backup integrity</td>
+                <td>Data</td>
+                <td>Weekly</td>
+                <td><span class="badge badge-success">Active</span></td>
+            </tr>
+            <tr>
+                <td><strong>Network Scanner</strong></td>
+                <td>Device discovery, port scanning</td>
+                <td>Security</td>
+                <td>Monthly</td>
+                <td><span class="badge badge-info">Scheduled</span></td>
+            </tr>
+            <tr>
+                <td><strong>Traffic Analyzer</strong></td>
+                <td>Bandwidth usage patterns</td>
+                <td>Performance</td>
+                <td>Continuous</td>
+                <td><span class="badge badge-success">Active</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ===== KEY PERFORMANCE INDICATORS ===== -->
+    <h2>4. Key Performance Indicators (KPIs)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>KPI</th>
+                <th>Target</th>
+                <th>Warning Threshold</th>
+                <th>Critical Threshold</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Network Uptime</strong></td>
+                <td>99.9%</td>
+                <td>99.5%</td>
+                <td>99.0%</td>
+                <td><span class="badge badge-success">✅ On Target</span></td>
+            </tr>
+            <tr>
+                <td><strong>Response Time (Internal)</strong></td>
+                <td>&lt;5ms</td>
+                <td>10ms</td>
+                <td>20ms</td>
+                <td><span class="badge badge-success">✅ On Target</span></td>
+            </tr>
+            <tr>
+                <td><strong>Response Time (External)</strong></td>
+                <td>&lt;50ms</td>
+                <td>100ms</td>
+                <td>200ms</td>
+                <td><span class="badge badge-success">✅ On Target</span></td>
+            </tr>
+            <tr>
+                <td><strong>Packet Loss</strong></td>
+                <td>0%</td>
+                <td>0.5%</td>
+                <td>1%</td>
+                <td><span class="badge badge-success">✅ On Target</span></td>
+            </tr>
+            <tr>
+                <td><strong>Bandwidth Usage</strong></td>
+                <td>&lt;70%</td>
+                <td>80%</td>
+                <td>90%</td>
+                <td><span class="badge badge-success">✅ On Target</span></td>
+            </tr>
+            <tr>
+                <td><strong>Wi-Fi Signal Strength</strong></td>
+                <td>-60dBm</td>
+                <td>-70dBm</td>
+                <td>-80dBm</td>
+                <td><span class="badge badge-success">✅ On Target</span></td>
+            </tr>
+            <tr>
+                <td><strong>Backup Success Rate</strong></td>
+                <td>100%</td>
+                <td>95%</td>
+                <td>90%</td>
+                <td><span class="badge badge-success">✅ On Target</span></td>
+            </tr>
+            <tr>
+                <td><strong>Security Incidents</strong></td>
+                <td>0 per month</td>
+                <td>1 per month</td>
+                <td>2 per month</td>
+                <td><span class="badge badge-success">✅ On Target</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ===== MONITORING SCHEDULE ===== -->
+    <h2>5. Monitoring Schedule</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Frequency</th>
+                <th>Task</th>
+                <th>Responsible</th>
+                <th>Tools</th>
+                <th>Documentation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Continuous</strong></td>
+                <td>Device uptime monitoring</td>
+                <td>Automated</td>
+                <td>Ping/ICMP</td>
+                <td>Uptime log</td>
+            </tr>
+            <tr>
+                <td><strong>Continuous</strong></td>
+                <td>Security log monitoring</td>
+                <td>Automated + Engineer</td>
+                <td>SIEM tools</td>
+                <td>Security log</td>
+            </tr>
+            <tr>
+                <td><strong>Daily</strong></td>
+                <td>Internet speed test</td>
+                <td>Network Engineer</td>
+                <td>Speedtest.net</td>
+                <td>Speed report</td>
+            </tr>
+            <tr>
+                <td><strong>Daily</strong></td>
+                <td>Backup verification</td>
+                <td>System Admin</td>
+                <td>Backup logs</td>
+                <td>Backup report</td>
+            </tr>
+            <tr>
+                <td><strong>Daily</strong></td>
+                <td>Firewall log review</td>
+                <td>Network Engineer</td>
+                <td>Firewall interface</td>
+                <td>Firewall log</td>
+            </tr>
+            <tr>
+                <td><strong>Weekly</strong></td>
+                <td>Wi-Fi signal survey</td>
+                <td>Network Engineer</td>
+                <td>Wi-Fi Analyzer</td>
+                <td>Wi-Fi report</td>
+            </tr>
+            <tr>
+                <td><strong>Weekly</strong></td>
+                <td>Bandwidth usage review</td>
+                <td>Network Engineer</td>
+                <td>Traffic analyzer</td>
+                <td>Bandwidth report</td>
+            </tr>
+            <tr>
+                <td><strong>Monthly</strong></td>
+                <td>Performance report</td>
+                <td>Network Engineer</td>
+                <td>Various tools</td>
+                <td>Monthly report</td>
+            </tr>
+            <tr>
+                <td><strong>Monthly</strong></td>
+                <td>Security audit</td>
+                <td>System Admin</td>
+                <td>Audit tools</td>
+                <td>Audit report</td>
+            </tr>
+            <tr>
+                <td><strong>Quarterly</strong></td>
+                <td>Penetration testing</td>
+                <td>External auditor</td>
+                <td>Security tools</td>
+                <td>Pen test report</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ===== ALERT CONFIGURATION ===== -->
+    <h2>6. Alert Configuration</h2>
+    <div class="three-col">
+        <div class="info-card">
+            <strong>🚨 Critical Alerts (P1)</strong>
+            • Device offline &gt;5 minutes<br>
+            • Security breach detected<br>
+            • Backup failure<br>
+            • High bandwidth usage &gt;90%<br>
+            • Complete network outage<br>
+            <strong>Response:</strong> Immediate (5 min)
+        </div>
+        <div class="info-card">
+            <strong>⚠️ Warning Alerts (P2)</strong>
+            • High latency &gt;20ms<br>
+            • Packet loss &gt;1%<br>
+            • Low signal strength<br>
+            • High CPU usage &gt;80%<br>
+            • Disk space &lt;10%<br>
+            <strong>Response:</strong> Within 1 hour
+        </div>
+        <div class="info-card">
+            <strong>📋 Informational Alerts (P3)</strong>
+            • Device rebooted<br>
+            • Configuration changed<br>
+            • Software updated<br>
+            • Scheduled maintenance<br>
+            • User login anomalies<br>
+            <strong>Response:</strong> Logged for review
+        </div>
+    </div>
+
+    <!-- ===== NOTIFICATION CHANNELS ===== -->
+    <h2>7. Notification Channels</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Channel</th>
+                <th>Purpose</th>
+                <th>Who Receives</th>
+                <th>Response Time</th>
+                <th>Priority</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>📧 Email</strong></td>
+                <td>Daily reports, warnings</td>
+                <td>Network Engineer, System Admin</td>
+                <td>4 hours</td>
+                <td>P2, P3</td>
+            </tr>
+            <tr>
+                <td><strong>📱 SMS</strong></td>
+                <td>Critical alerts, emergencies</td>
+                <td>Network Engineer, Project Manager</td>
+                <td>5 minutes</td>
+                <td>P1</td>
+            </tr>
+            <tr>
+                <td><strong>💬 WhatsApp</strong></td>
+                <td>Quick updates, team notifications</td>
+                <td>All team members</td>
+                <td>30 minutes</td>
+                <td>P2</td>
+            </tr>
+            <tr>
+                <td><strong>📞 Phone</strong></td>
+                <td>Critical emergencies</td>
+                <td>On-call Engineer</td>
+                <td>5 minutes</td>
+                <td>P1</td>
+            </tr>
+            <tr>
+                <td><strong>📊 Dashboard</strong></td>
+                <td>Real-time status display</td>
+                <td>All team members</td>
+                <td>N/A</td>
+                <td>All</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ===== INCIDENT RESPONSE PROCEDURE ===== -->
+    <h2>8. Incident Response Procedure</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Step</th>
+                <th>Action</th>
+                <th>Responsible</th>
+                <th>Timeframe</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Alert received or issue detected</td>
+                <td>Automated/Team member</td>
+                <td>Immediate</td>
+                <td><span class="badge badge-info">Ongoing</span></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Assess severity and impact</td>
+                <td>Network Engineer</td>
+                <td>5 minutes</td>
+                <td><span class="badge badge-info">Ongoing</span></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Investigate root cause</td>
+                <td>Network Engineer</td>
+                <td>15 minutes</td>
+                <td><span class="badge badge-info">Ongoing</span></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Implement fix or workaround</td>
+                <td>Network Engineer</td>
+                <td>Varies (SLA)</td>
+                <td><span class="badge badge-info">Ongoing</span></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Verify resolution</td>
+                <td>Network Engineer</td>
+                <td>10 minutes</td>
+                <td><span class="badge badge-info">Ongoing</span></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Update incident log</td>
+                <td>Network Engineer</td>
+                <td>30 minutes</td>
+                <td><span class="badge badge-info">Ongoing</span></td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Root cause analysis (if needed)</td>
+                <td>Network Engineer</td>
+                <td>24 hours</td>
+                <td><span class="badge badge-info">Ongoing</span></td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Update monitoring procedures</td>
+                <td>Network Engineer</td>
+                <td>48 hours</td>
+                <td><span class="badge badge-info">Ongoing</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ===== INCIDENT LOG ===== -->
+    <h2>9. Incident Log</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Incident ID</th>
+                <th>Date/Time</th>
+                <th>Description</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Resolution</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>INC-2026-06-001</td>
+                <td>22 June 2026 09:15</td>
+                <td>Reception PC offline - loose cable</td>
+                <td><span class="badge badge-warning">P2</span></td>
+                <td><span class="badge badge-success">✅ Resolved</span></td>
+                <td>Cable reconnected</td>
+            </tr>
+            <tr>
+                <td>INC-2026-06-002</td>
+                <td>24 June 2026 14:30</td>
+                <td>Wi-Fi interference - signal low</td>
+                <td><span class="badge badge-warning">P2</span></td>
+                <td><span class="badge badge-success">✅ Resolved</span></td>
+                <td>Channel changed</td>
+            </tr>
+            <tr>
+                <td>INC-2026-06-003</td>
+                <td>28 June 2026 03:00</td>
+                <td>Backup failure - disk full</td>
+                <td><span class="badge badge-danger">P1</span></td>
+                <td><span class="badge badge-success">✅ Resolved</span></td>
+                <td>Disk cleanup + retention policy</td>
+            </tr>
+            <tr>
+                <td>INC-2026-07-004</td>
+                <td>2 July 2026 10:20</td>
+                <td>High bandwidth usage - 85%</td>
+                <td><span class="badge badge-warning">P2</span></td>
+                <td><span class="badge badge-success">✅ Resolved</span></td>
+                <td>QoS rules applied</td>
+            </tr>
+            <tr>
+                <td>INC-2026-07-005</td>
+                <td>5 July 2026 16:45</td>
+                <td>Firewall alert - port scan detected</td>
+                <td><span class="badge badge-danger">P1</span></td>
+                <td><span class="badge badge-warning">⏳ In Progress</span></td>
+                <td>Under investigation</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ===== MONTHLY REPORTING ===== -->
+    <h2>10. Monthly Reporting</h2>
+    <div class="highlight">
+        <p><strong>📊 Report Contents:</strong></p>
+        <ul style="padding-left: 1.5rem;">
+            <li><strong>Executive Summary</strong> - Key findings and highlights</li>
+            <li><strong>System Uptime</strong> - Availability statistics</li>
+            <li><strong>Performance Metrics</strong> - Latency, throughput, packet loss</li>
+            <li><strong>Security Report</strong> - Incidents, threats, resolutions</li>
+            <li><strong>Backup Status</strong> - Success rate, restore testing</li>
+            <li><strong>Capacity Planning</strong> - Bandwidth usage, storage trends</li>
+            <li><strong>Incident Summary</strong> - All incidents and resolutions</li>
+            <li><strong>Recommendations</strong> - Improvements and next steps</li>
+        </ul>
+    </div>
+
+    <!-- ===== PERFORMANCE CHARTS ===== -->
+    <h2>11. Performance Trends</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin: 1.5rem 0;">
+        <div style="background: var(--card-dark); padding: 1.5rem; border-radius: 0.8rem; border: 1px solid var(--border-gold); text-align: center;">
+            <h4 style="color: var(--gold);">📈 Uptime Trend</h4>
+            <div style="font-family: var(--font-display); font-size: 2.5rem; color: #4CAF50; margin: 0.5rem 0;">99.95%</div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted);">
+                <span>Week 1: 99.8%</span>
+                <span>Week 2: 99.9%</span>
+                <span>Week 3: 100%</span>
+                <span>Week 4: 99.9%</span>
+            </div>
+        </div>
+        <div style="background: var(--card-dark); padding: 1.5rem; border-radius: 0.8rem; border: 1px solid var(--border-gold); text-align: center;">
+            <h4 style="color: var(--gold);">⚡ Average Latency</h4>
+            <div style="font-family: var(--font-display); font-size: 2.5rem; color: #4CAF50; margin: 0.5rem 0;">2.3ms</div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted);">
+                <span>Internal: 2ms</span>
+                <span>External: 45ms</span>
+            </div>
+        </div>
+        <div style="background: var(--card-dark); padding: 1.5rem; border-radius: 0.8rem; border: 1px solid var(--border-gold); text-align: center;">
+            <h4 style="color: var(--gold);">💾 Backup Success</h4>
+            <div style="font-family: var(--font-display); font-size: 2.5rem; color: #4CAF50; margin: 0.5rem 0;">100%</div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted);">
+                <span>Database: 100%</span>
+                <span>Full: 100%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== RESPONSE CONTACTS ===== -->
+    <h2>12. Emergency Response Contacts</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Priority</th>
+                <th>Contact</th>
+                <th>Role</th>
+                <th>Phone</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="badge badge-danger">🔴 P1</span></td>
+                <td><strong>Kagiso Nkalanga</strong></td>
+                <td>Network Engineer</td>
+                <td>+27 82 123 4567</td>
+                <td>kagiso.n@binarybit.co.za</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-danger">🔴 P1</span></td>
+                <td><strong>Lungile M.</strong></td>
+                <td>System Administrator</td>
+                <td>+27 83 234 5678</td>
+                <td>lungile.m@binarybit.co.za</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-danger">🔴 P1</span></td>
+                <td><strong>T. Zulu</strong></td>
+                <td>Project Manager</td>
+                <td>+27 84 345 6789</td>
+                <td>t.zulu@binarybit.co.za</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-warning">🟡 P2</span></td>
+                <td><strong>Trevor N.</strong></td>
+                <td>Support Technician</td>
+                <td>+27 85 456 7890</td>
+                <td>trevor.n@binarybit.co.za</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ===== SIGN-OFF ===== -->
+    <h2>13. Sign-Off</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Role</th>
+                <th>Name</th>
+                <th>Signature</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Network Engineer</td>
+                <td>Kagiso Nkalanga</td>
+                <td>_________________</td>
+                <td>_________</td>
+            </tr>
+            <tr>
+                <td>System Administrator</td>
+                <td>Lungile M.</td>
+                <td>_________________</td>
+                <td>_________</td>
+            </tr>
+            <tr>
+                <td>Project Manager</td>
+                <td>T. Zulu</td>
+                <td>_________________</td>
+                <td>_________</td>
+            </tr>
+            <tr>
+                <td>Salon Owner</td>
+                <td>Liya</td>
+                <td>_________________</td>
+                <td>_________</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="footer">
+        <p><i class="ri-sparkling-line"></i> Liya's Beauty Boutique — Network Monitoring Guide &nbsp;|&nbsp; <i class="ri-user-line"></i> Network Engineer: Kagiso Nkalanga &nbsp;|&nbsp; <i class="ri-calendar-line"></i> June 2026</p>
+        <p style="font-size: 0.75rem; margin-top: 0.5rem;">Binary Bit Technologies &bull; All Rights Reserved</p>
+    </div>
+</div>
+
+</body>
+</html>
